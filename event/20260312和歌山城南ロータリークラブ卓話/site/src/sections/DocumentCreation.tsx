@@ -3,6 +3,9 @@ import { SectionWrapper } from '../components/SectionWrapper'
 import { SectionLabel } from '../components/SectionLabel'
 import { ChatBubble } from '../components/ChatBubble'
 import { InlineQA } from '../components/InlineQA'
+import docxSamplePreview from '../../../../../assets/captcha/docx_samole.png'
+import pptxSamplePreview from '../../../../../assets/captcha/pptx_sample.png'
+import pptxSampleFile from '../../../../../assets/claude_output/pptx_sample.pptx?url'
 
 const CHAT_PPTX = [
   {
@@ -93,12 +96,12 @@ export function DocumentCreation() {
               あとは自社のデータに差し替えて、表現を微調整すれば完成。
             </p>
             <a
-              href="/downloads/pptx_sample.pptx"
+              href={pptxSampleFile}
               download
               className="group block rounded-xl border border-gray-200 bg-white overflow-hidden hover:border-orange-300 hover:shadow-md transition-all"
             >
               <img
-                src="/captures/pptx_sample.png"
+                src={pptxSamplePreview}
                 alt="AIが作成したプレゼン資料"
                 className="w-full h-auto"
               />
@@ -128,7 +131,7 @@ export function DocumentCreation() {
             </h3>
             <div className="rounded-xl border border-gray-200 bg-white overflow-hidden">
               <img
-                src="/captures/docx_samole.png"
+                src={docxSamplePreview}
                 alt="AIが作成したWord文書"
                 className="w-full h-auto"
               />

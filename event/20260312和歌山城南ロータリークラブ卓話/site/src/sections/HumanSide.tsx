@@ -3,6 +3,11 @@ import { SectionWrapper } from '../components/SectionWrapper'
 import { SectionLabel } from '../components/SectionLabel'
 import { ChatBubble } from '../components/ChatBubble'
 import { InlineQA } from '../components/InlineQA'
+import illustrationL02RectangleWhite from '../../../../../assets/png/l_02_rectangle_white.png'
+import illustrationM02White from '../../../../../assets/png/m_02_white.png'
+import illustrationM03White from '../../../../../assets/png/m_03_white.png'
+import illustrationM04White from '../../../../../assets/png/m_04_white.png'
+import illustrationM09White from '../../../../../assets/png/m_09_white.png'
 
 const BAD_PROMPT = [
   { role: 'user' as const, text: '売上報告の資料作って' },
@@ -31,7 +36,12 @@ const GOOD_PROMPT = [
   },
 ]
 
-const SKILL_ILLUSTRATIONS = ['m_02_white', 'm_03_white', 'm_04_white', 'm_09_white']
+const SKILL_ILLUSTRATIONS = [
+  illustrationM02White,
+  illustrationM03White,
+  illustrationM04White,
+  illustrationM09White,
+]
 
 const SKILLS = [
   {
@@ -88,7 +98,7 @@ export function HumanSide() {
             </p>
           </div>
           <motion.img
-            src="/illustrations/l_02_rectangle_white.png"
+            src={illustrationL02RectangleWhite}
             alt=""
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -125,7 +135,7 @@ export function HumanSide() {
             </div>
             {/* Decorative illustration */}
             <motion.img
-              src={`/illustrations/${SKILL_ILLUSTRATIONS[i]}.png`}
+              src={SKILL_ILLUSTRATIONS[i]}
               alt=""
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 0.15, x: 0 }}

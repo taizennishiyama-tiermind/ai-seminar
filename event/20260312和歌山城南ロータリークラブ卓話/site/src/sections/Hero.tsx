@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { ArrowDown } from 'lucide-react'
+import illustrationL01RectangleWhite from '../../../../../assets/png/l_01_rectangle_white.png'
 
 export function Hero() {
   return (
@@ -56,7 +57,7 @@ export function Hero() {
           className="flex justify-center mb-12"
         >
           <img
-            src="/illustrations/l_01_rectangle_white.png"
+            src={illustrationL01RectangleWhite}
             alt=""
             className="w-80 sm:w-[420px] h-auto mix-blend-multiply"
           />

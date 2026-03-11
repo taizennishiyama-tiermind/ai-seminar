@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { SectionWrapper } from '../components/SectionWrapper'
+import illustrationL01SquareWhite from '../../../../../assets/png/l_01_square_white.png'
 
 const TAKEAWAYS = [
   {
@@ -112,7 +113,7 @@ export function Closing() {
         className="text-center p-8 sm:p-10 rounded-2xl bg-white border border-gray-200"
       >
         <img
-          src="/illustrations/l_01_square_white.png"
+          src={illustrationL01SquareWhite}
           alt=""
           className="w-36 h-36 mx-auto mb-6 mix-blend-multiply"
         />
