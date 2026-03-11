@@ -4,74 +4,112 @@ import { SectionWrapper } from '../components/SectionWrapper'
 import { SectionLabel } from '../components/SectionLabel'
 import { InlineQA } from '../components/InlineQA'
 
-interface TerminalLine {
-  readonly type: 'input' | 'output' | 'ai' | 'system' | 'file-create'
-  readonly text: string
+type LineType = 'text' | 'bullet' | 'file' | 'success' | 'empty'
+
+interface AiLine {
+  type: LineType
+  text: string
 }
 
-const TERMINAL_LINES: readonly TerminalLine[] = [
-  { type: 'input', text: '$ claude' },
-  { type: 'system', text: 'Claude Code v1.2.0 — AI pair programming' },
-  { type: 'system', text: '' },
-  { type: 'input', text: '> 家の外壁の画像をアップロードしたら、' },
-  { type: 'input', text: '  AIがペンキの色を自動で塗り替えてくれるアプリを作って。' },
-  { type: 'input', text: '  色を選べるカラーパレット付きで。' },
-  { type: 'system', text: '' },
-  { type: 'ai', text: 'PaintVision アプリを作成します。' },
-  { type: 'ai', text: '  - 画像アップロード機能' },
-  { type: 'ai', text: '  - AI画像生成で外壁の色を変更' },
-  { type: 'ai', text: '  - カラーパレットから好みの色を選択' },
-  { type: 'ai', text: '  - ビフォー/アフターの比較表示' },
-  { type: 'system', text: '' },
-  { type: 'file-create', text: '+ src/App.tsx' },
-  { type: 'file-create', text: '+ src/components/ImageEditor.tsx' },
-  { type: 'file-create', text: '+ src/components/ColorPalette.tsx' },
-  { type: 'file-create', text: '+ src/services/geminiService.ts' },
-  { type: 'system', text: '' },
-  { type: 'output', text: '✓ 開発サーバー起動中... localhost:5173' },
-  { type: 'output', text: '✓ 6ファイル作成完了 — PaintVision 完成' },
+const AI_LINES: AiLine[] = [
+  { type: 'text',    text: 'PaintVision アプリを作成します。' },
+  { type: 'empty',   text: '' },
+  { type: 'bullet',  text: '・画像アップロード機能' },
+  { type: 'bullet',  text: '・AI画像生成で外壁の色を変更' },
+  { type: 'bullet',  text: '・カラーパレットから好みの色を選択' },
+  { type: 'bullet',  text: '・ビフォー/アフターの比較表示' },
+  { type: 'empty',   text: '' },
+  { type: 'file',    text: '+ src/App.tsx' },
+  { type: 'file',    text: '+ src/components/ImageEditor.tsx' },
+  { type: 'file',    text: '+ src/components/ColorPalette.tsx' },
+  { type: 'file',    text: '+ src/services/geminiService.ts' },
+  { type: 'empty',   text: '' },
+  { type: 'success', text: '✓ 6ファイル作成完了 — PaintVision 完成' },
 ]
 
-export function DemoTeaser() {
-  const [visibleLines, setVisibleLines] = useState(0)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const hasStarted = useRef(false)
+function StreamingAiResponse() {
+  const [visibleCount, setVisibleCount] = useState(0)
+  const ref = useRef<HTMLDivElement>(null)
+  const started = useRef(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !hasStarted.current) {
-          hasStarted.current = true
+        if (entry.isIntersecting && !started.current) {
+          started.current = true
           let i = 0
-          const interval = setInterval(() => {
+          const id = setInterval(() => {
             i++
-            setVisibleLines(i)
-            if (i >= TERMINAL_LINES.length) {
-              clearInterval(interval)
-            }
-          }, 200)
+            setVisibleCount(i)
+            if (i >= AI_LINES.length) clearInterval(id)
+          }, 160)
         }
       },
       { threshold: 0.3 }
     )
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current)
-    }
-
+    if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()
   }, [])
 
-  const getLineColor = (type: TerminalLine['type']) => {
+  const colorClass = (type: LineType) => {
     switch (type) {
-      case 'input': return 'text-[#4ade80]'
-      case 'output': return 'text-[#999]'
-      case 'ai': return 'text-[#c084fc]'
-      case 'system': return 'text-[#569cd6]'
-      case 'file-create': return 'text-[#89d185]'
+      case 'bullet':  return 'text-gray-700'
+      case 'file':    return 'text-emerald-600 font-mono'
+      case 'success': return 'text-blue-600 font-bold'
+      default:        return 'text-gray-800'
     }
   }
 
+  return (
+    <div ref={ref} className="rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm">
+      {/* Header */}
+      <div className="px-5 py-3 bg-gray-50 border-b border-gray-200 flex items-center gap-3">
+        <span className="w-3 h-3 rounded-full bg-green-400 animate-pulse" />
+        <span className="text-sm font-semibold text-gray-700">Google AI Studio</span>
+      </div>
+
+      {/* User bubble */}
+      <div className="p-5 pb-3">
+        <div className="flex justify-end">
+          <div className="max-w-[85%] rounded-2xl rounded-br-sm bg-primary-600 text-white px-4 py-3 text-base leading-relaxed whitespace-pre-line">
+            家の外壁の画像をアップロードしたら、AIがペンキの色を自動で塗り替えてくれるアプリを作って。色を選べるカラーパレット付きで。
+          </div>
+        </div>
+      </div>
+
+      {/* AI streaming bubble */}
+      <div className="px-5 pb-5">
+        <div className="flex justify-start">
+          <div className="max-w-[85%] rounded-2xl rounded-bl-sm bg-gray-100 text-gray-800 px-4 py-3 text-base leading-relaxed">
+            <span className="block text-xs font-bold text-primary-500 mb-2">AI</span>
+            <div className="font-mono text-[14px] leading-6 space-y-0.5">
+              {AI_LINES.slice(0, visibleCount).map((line, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -6 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className={line.type === 'empty' ? 'h-2' : colorClass(line.type)}
+                >
+                  {line.text}
+                </motion.div>
+              ))}
+              {visibleCount < AI_LINES.length && (
+                <motion.span
+                  animate={{ opacity: [1, 0] }}
+                  transition={{ duration: 0.5, repeat: Infinity, repeatType: 'reverse' }}
+                  className="inline-block w-2 h-4 bg-primary-400 align-middle"
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export function DemoTeaser() {
   return (
     <SectionWrapper id="demo">
       <SectionLabel
@@ -137,53 +175,10 @@ export function DemoTeaser() {
         </div>
       </motion.div>
 
-      {/* VS Code Simulator */}
-      <motion.div
-        ref={containerRef}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="rounded-2xl shadow-2xl shadow-black/20 border border-gray-800/50 overflow-hidden"
-      >
-        {/* Title bar */}
-        <div className="bg-[#1e1e1e] px-4 py-3 flex items-center gap-3">
-          <div className="flex gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-            <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
-            <div className="w-3 h-3 rounded-full bg-[#28c840]" />
-          </div>
-          <span className="text-sm text-gray-400 font-mono">
-            paint-vision — Claude Code
-          </span>
-        </div>
+      {/* Chat demo */}
+      <StreamingAiResponse />
 
-        {/* Terminal */}
-        <div className="bg-[#1e1e1e] p-5 sm:p-6 font-mono text-[15px] leading-7 min-h-[420px] overflow-hidden">
-          {TERMINAL_LINES.slice(0, visibleLines).map((line, i) => (
-            <div key={i} className={getLineColor(line.type)}>
-              {line.type === 'ai' && i === 7 && (
-                <span className="text-[#c084fc] font-bold">AI: </span>
-              )}
-              {line.text}
-            </div>
-          ))}
-          {visibleLines < TERMINAL_LINES.length && (
-            <motion.span
-              animate={{ opacity: [1, 0] }}
-              transition={{ duration: 0.6, repeat: Infinity, repeatType: 'reverse' }}
-              className="inline-block w-2.5 h-5 bg-[#4ade80] ml-0.5"
-            />
-          )}
-        </div>
-
-        {/* Status bar */}
-        <div className="bg-[#007acc] px-4 py-1.5 flex items-center justify-between">
-          <span className="text-xs text-white/80 font-mono">main</span>
-          <span className="text-xs text-white/80 font-mono">TypeScript React</span>
-        </div>
-      </motion.div>
-
-      {/* Result: PaintVision app mock */}
+      {/* Result: PaintVision app screenshot */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -203,38 +198,12 @@ export function DemoTeaser() {
             </div>
           </div>
         </div>
-        <div className="bg-white p-8 sm:p-10">
-          <div className="text-center mb-6">
-            <h4 className="text-2xl font-black text-gray-900 mb-2">
-              PaintVision
-            </h4>
-            <p className="text-base text-gray-500">
-              家の写真をアップロード → AIが外壁の色を塗り替え
-            </p>
-          </div>
-          <div className="grid grid-cols-2 gap-4 max-w-lg mx-auto mb-6">
-            <div className="rounded-xl bg-gray-100 p-4 text-center">
-              <div className="w-full h-28 rounded-lg bg-gradient-to-br from-gray-200 to-gray-300 mb-3 flex items-center justify-center">
-                <span className="text-3xl">🏠</span>
-              </div>
-              <p className="text-sm font-bold text-gray-600">Before</p>
-            </div>
-            <div className="rounded-xl bg-blue-50 p-4 text-center">
-              <div className="w-full h-28 rounded-lg bg-gradient-to-br from-blue-200 to-blue-300 mb-3 flex items-center justify-center">
-                <span className="text-3xl">🏠</span>
-              </div>
-              <p className="text-sm font-bold text-blue-600">After</p>
-            </div>
-          </div>
-          <div className="flex justify-center gap-2 max-w-xs mx-auto">
-            {['#E74C3C', '#3498DB', '#2ECC71', '#F39C12', '#9B59B6', '#1ABC9C'].map((color) => (
-              <div
-                key={color}
-                className="w-8 h-8 rounded-full border-2 border-white shadow-sm"
-                style={{ backgroundColor: color }}
-              />
-            ))}
-          </div>
+        <div className="bg-white">
+          <img
+            src="/captures/paintvision_preview.png"
+            alt="PaintVision アプリのスクリーンショット"
+            className="w-full h-auto"
+          />
         </div>
       </motion.div>
 

@@ -125,6 +125,89 @@ export function ConcreteExamples() {
         </p>
       </motion.div>
 
+      {/* Tool selection guide */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="mb-10"
+      >
+        <h3 className="text-xl font-bold text-gray-800 mb-2">どれを使えばいいの？</h3>
+        <p className="text-base text-gray-500 mb-6">
+          どれも「日本語でチャットするだけ」で使えます。得意分野が微妙に違うので、用途に合わせて選ぶと効果的です。
+        </p>
+        <div className="space-y-4">
+          {[
+            {
+              tool: 'ChatGPT',
+              company: 'OpenAI',
+              badge: '万能型・検索精度が高い',
+              badgeColor: 'bg-gray-200 text-gray-800',
+              border: 'border-gray-300',
+              bg: 'bg-gray-50/60',
+              tagStyle: 'border border-gray-300 bg-white text-gray-700',
+              summary: <><strong>「とにかく何でも聞いてみる」感覚で使えるオールラウンダー。</strong>検索精度が高く、最新ニュースや文書に強い。複雑な質問にも幅広く対応。</>,
+              uses: ['業界・市場のリサーチ・調査', 'メール・提案書・議事録の下書き', 'アイデア出し・企画のブレスト', 'ウェブ検索と組み合わせた情報収集'],
+              note: null,
+            },
+            {
+              tool: 'Claude',
+              company: 'Anthropic',
+              badge: '文章・資料作成の精度が高い',
+              badgeColor: 'bg-orange-100 text-orange-700',
+              border: 'border-orange-200',
+              bg: 'bg-orange-50/30',
+              tagStyle: 'border border-orange-200 bg-orange-50/60 text-orange-800',
+              summary: <><strong>PowerPointやWordなどファイルを直接作成・編集する能力が高く、資料の見栄えにこだわりたい時に最適。</strong>文章の推敲や言い回しの改善も得意。</>,
+              uses: ['提案書・事業計画書の文章磨き', 'パンフレット・HPの原稿作成', 'クレーム対応など繊細なメール文', '契約書・規約の要点まとめ'],
+              note: null,
+            },
+            {
+              tool: 'Gemini',
+              company: 'Google',
+              badge: 'Googleワークスペース環境に最適',
+              badgeColor: 'bg-blue-100 text-blue-700',
+              border: 'border-blue-200',
+              bg: 'bg-blue-50/30',
+              tagStyle: 'border border-blue-200 bg-blue-50/60 text-blue-800',
+              summary: <><strong>Googleワークスペースと直接連携でき、また画像生成のクオリティが高い。</strong><br />チラシ素材やSNS画像の生成でも活躍。</>,
+              uses: ['Gmailの返信をAIが自動提案', 'Googleドキュメントで文章をAI編集', 'スプレッドシートのデータ分析・グラフ化', 'チラシ・SNS用の高品質な画像生成'],
+              note: 'Gmail・Googleドキュメント上で別タブを開かずにAIを呼び出すことが可能。',
+            },
+          ].map((item, i) => (
+            <motion.div
+              key={item.tool}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.06 }}
+              className={`rounded-2xl border ${item.border} ${item.bg} p-5 sm:p-6`}
+            >
+              <div className="flex flex-wrap items-center gap-3 mb-3">
+                <p className="text-lg font-bold text-gray-900">{item.tool}</p>
+                <span className="text-xs text-gray-400 font-medium">{item.company}</span>
+                <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${item.badgeColor}`}>{item.badge}</span>
+              </div>
+              <p className="text-base text-gray-700 leading-relaxed mb-4">{item.summary}</p>
+              <div className="flex flex-wrap gap-2 mb-3">
+                {item.uses.map((u) => (
+                  <span key={u} className={`text-sm font-medium px-3 py-1.5 rounded-lg ${item.tagStyle}`}>
+                    {u}
+                  </span>
+                ))}
+              </div>
+              {item.note && (
+                <p className="text-sm text-gray-600 bg-white/70 rounded-xl px-4 py-3 border border-white/80">
+                  💡 {item.note}
+                </p>
+              )}
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+
+      <h3 className="text-xl font-bold text-gray-800 mb-6">具体的な活用イメージ</h3>
+
       <div className="space-y-12">
         {EXAMPLES.map((ex, i) => (
           <motion.div

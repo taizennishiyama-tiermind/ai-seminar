@@ -6,8 +6,9 @@ import { InlineQA } from '../components/InlineQA'
 
 const BAD_PROMPT = [
   { role: 'user' as const, text: '売上報告の資料作って' },
-  { role: 'ai' as const, text: 'どのような売上報告資料を作成しましょうか？\n期間、対象商品、報告先、必要なグラフの種類などを教えてください。' },
+  { role: 'ai' as const, text: '売上報告資料のテンプレートを作成します。\n\n【売上報告書】\n報告期間：〇〇年〇月\n\n■ 売上サマリー\n・当月売上：〇〇円\n・前月比：+〇%\n・目標達成率：〇%\n\n■ 主要トピックス\n（ここに主な増減要因を記載）\n\n■ 来月の見通し\n（ここに見込みを記載）\n\n---\n数値や期間を埋めて使ってください。グラフや詳細が必要であれば教えてください。' },
 ]
+
 
 const GOOD_PROMPT = [
   {
