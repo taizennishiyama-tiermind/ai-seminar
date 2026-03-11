@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { SectionWrapper } from '../components/SectionWrapper'
 import { SectionLabel } from '../components/SectionLabel'
 import { InlineQA } from '../components/InlineQA'
+import homepageSample from '../../../../../assets/captcha/homepage_sample.png'
 
 type Tab = 'before' | 'after'
 
@@ -26,7 +27,7 @@ const SITE_SHOWCASES = [
   {
     title: 'ホームページサンプル',
     description: 'AIとの会話だけで制作したWebサイト。デザインからコーディングまで全てAIが担当。',
-    image: '/captures/homepage_sample.png',
+    image: homepageSample,
     url: 'https://tier-mind-dev-lp-v2.vercel.app/',
     badge: 'AIで制作',
   },

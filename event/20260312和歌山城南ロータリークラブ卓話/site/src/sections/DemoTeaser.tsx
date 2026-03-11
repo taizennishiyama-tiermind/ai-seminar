@@ -3,6 +3,8 @@ import { motion } from 'framer-motion'
 import { SectionWrapper } from '../components/SectionWrapper'
 import { SectionLabel } from '../components/SectionLabel'
 import { InlineQA } from '../components/InlineQA'
+import paintVisionPreview from '../../../../../assets/captcha/paintvision_preview.png'
+import illustrationM08White from '../../../../../assets/png/m_08_white.png'
 
 type LineType = 'text' | 'bullet' | 'file' | 'success' | 'empty'
 
@@ -138,7 +140,7 @@ export function DemoTeaser() {
             </p>
           </div>
           <motion.img
-            src="/illustrations/m_08_white.png"
+            src={illustrationM08White}
             alt=""
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -200,7 +202,7 @@ export function DemoTeaser() {
         </div>
         <div className="bg-white">
           <img
-            src="/captures/paintvision_preview.png"
+            src={paintVisionPreview}
             alt="PaintVision アプリのスクリーンショット"
             className="w-full h-auto"
           />
