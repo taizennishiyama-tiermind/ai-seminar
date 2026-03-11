@@ -59,8 +59,8 @@ export function DocumentCreation() {
         ))}
       </div>
 
-      {/* Chat example: PowerPoint */}
-      <div className="space-y-8 mb-12">
+      {/* Chat examples */}
+      <div className="space-y-12 mb-12">
         <div>
           <p className="text-lg font-bold text-gray-800 mb-3">
             例1: 経営会議のプレゼン資料を作らせる
@@ -77,6 +77,37 @@ export function DocumentCreation() {
               あとは数字と表現を確認して微調整するだけ。
             </p>
           </motion.div>
+
+          {/* Actual output: PowerPoint */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-6 p-6 rounded-2xl bg-white border-2 border-primary-200"
+          >
+            <h3 className="text-lg font-bold text-gray-900 mb-4">
+              実際にAIが作った資料がこちら
+            </h3>
+            <p className="text-base text-gray-500 mb-4">
+              ChatGPTやClaudeに指示するだけで、このレベルの資料が数分で出てきます。
+              あとは自社のデータに差し替えて、表現を微調整すれば完成。
+            </p>
+            <a
+              href="/downloads/pptx_sample.pptx"
+              download
+              className="group block rounded-xl border border-gray-200 bg-white overflow-hidden hover:border-orange-300 hover:shadow-md transition-all"
+            >
+              <img
+                src="/captures/pptx_sample.png"
+                alt="AIが作成したプレゼン資料"
+                className="w-full h-auto"
+              />
+              <div className="p-4 text-center border-t border-gray-100">
+                <p className="text-base font-bold text-gray-700 group-hover:text-orange-600 transition-colors">プレゼン資料（.pptx）</p>
+                <p className="text-sm text-primary-500 mt-1">クリックでダウンロード →</p>
+              </div>
+            </a>
+          </motion.div>
         </div>
 
         <div>
@@ -84,51 +115,30 @@ export function DocumentCreation() {
             例2: 契約書のひな形をWordで作らせる
           </p>
           <ChatBubble messages={CHAT_WORD} title="Claude" />
+
+          {/* Actual output: Word */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-6 p-6 rounded-2xl bg-white border-2 border-primary-200"
+          >
+            <h3 className="text-lg font-bold text-gray-900 mb-4">
+              実際にAIが作った資料がこちら
+            </h3>
+            <div className="rounded-xl border border-gray-200 bg-white overflow-hidden">
+              <img
+                src="/captures/docx_samole.png"
+                alt="AIが作成したWord文書"
+                className="w-full h-auto"
+              />
+              <div className="p-4 text-center border-t border-gray-100">
+                <p className="text-base font-bold text-gray-700">Word文書（.docx）</p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
-
-      {/* Screenshot placeholder for actual created docs */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="p-6 sm:p-8 rounded-2xl bg-white border-2 border-primary-200 mb-8"
-      >
-        <h3 className="text-xl font-bold text-gray-900 mb-4">
-          実際にAIが作った資料がこちら
-        </h3>
-        <p className="text-base text-gray-500 mb-6">
-          ChatGPTやClaudeに指示するだけで、このレベルの資料が数分で出てきます。
-          あとは自社のデータに差し替えて、表現を微調整すれば完成。
-        </p>
-        <div className="space-y-6">
-          <a
-            href="/downloads/pptx_sample.pptx"
-            download
-            className="group block rounded-xl border border-gray-200 bg-white overflow-hidden hover:border-orange-300 hover:shadow-md transition-all"
-          >
-            <img
-              src="/captures/pptx_sample.png"
-              alt="AIが作成したプレゼン資料"
-              className="w-full h-auto"
-            />
-            <div className="p-4 text-center border-t border-gray-100">
-              <p className="text-base font-bold text-gray-700 group-hover:text-orange-600 transition-colors">プレゼン資料（.pptx）</p>
-              <p className="text-sm text-primary-500 mt-1">クリックでダウンロード →</p>
-            </div>
-          </a>
-          <div className="rounded-xl border border-gray-200 bg-white overflow-hidden">
-            <img
-              src="/captures/docx_samole.png"
-              alt="AIが作成したWord文書"
-              className="w-full h-auto"
-            />
-            <div className="p-4 text-center border-t border-gray-100">
-              <p className="text-base font-bold text-gray-700">Word文書（.docx）</p>
-            </div>
-          </div>
-        </div>
-      </motion.div>
 
       {/* Key message */}
       <motion.div

@@ -125,14 +125,14 @@ export function BeforeAfter() {
           >
             <div className="flex flex-wrap items-center gap-3 mb-8">
               <span className="text-lg font-bold text-green-600">
-                合計: 半日〜2日
+                合計: 数時間
               </span>
               <motion.span
                 animate={{ scale: [1, 1.08, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
                 className="text-sm font-bold text-green-600 bg-green-100 px-3 py-1 rounded-full"
               >
-                10倍以上 速い
+                圧倒的に速い
               </motion.span>
             </div>
             <div className="space-y-4">
