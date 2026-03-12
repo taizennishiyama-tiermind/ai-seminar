@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 interface ChatAttachment {
   readonly name: string
   readonly size: string
+  readonly format?: string
 }
 
 interface ChatChart {
@@ -11,6 +12,12 @@ interface ChatChart {
   readonly value: number
   readonly max: number
   readonly color: string
+}
+
+interface ChatDownloadFile {
+  readonly name: string
+  readonly format: string
+  readonly formatColor: string
 }
 
 interface ChatVideo {
@@ -39,6 +46,7 @@ interface ChatMessage {
   readonly attachments?: readonly ChatAttachment[]
   readonly charts?: readonly ChatChart[]
   readonly video?: ChatVideo
+  readonly downloadFile?: ChatDownloadFile
   readonly appPreview?: ChatAppPreview
 }
 
@@ -147,7 +155,7 @@ export function ChatBubble({ messages, title }: ChatBubbleProps) {
                         className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-white/20 border border-white/30"
                       >
                         <div className="shrink-0 w-9 h-9 rounded-lg bg-white/30 flex items-center justify-center">
-                          <span className="text-xs font-black text-white/90">xlsx</span>
+                          <span className="text-xs font-black text-white/90">{file.format ?? 'xlsx'}</span>
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium text-white truncate">{file.name}</p>
@@ -155,6 +163,24 @@ export function ChatBubble({ messages, title }: ChatBubbleProps) {
                         </div>
                       </div>
                     ))}
+                  </div>
+                )}
+
+                {/* Download file (AI messages) */}
+                {msg.downloadFile && (
+                  <div className="px-4 pb-3 pt-1">
+                    <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white border border-gray-200">
+                      <div className={`shrink-0 w-10 h-10 rounded-lg flex items-center justify-center ${msg.downloadFile.formatColor}`}>
+                        <span className="text-xs font-black uppercase">{msg.downloadFile.format}</span>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-gray-800 truncate">{msg.downloadFile.name}</p>
+                        <p className="text-xs text-primary-500">クリックでダウンロード</p>
+                      </div>
+                      <div className="shrink-0 text-gray-300">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v9m0 0l-3-3m3 3l3-3M3 13h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      </div>
+                    </div>
                   </div>
                 )}
 

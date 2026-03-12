@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ChevronUp } from 'lucide-react'
 import { Hero } from './sections/Hero'
+import { SelfIntro } from './sections/SelfIntro'
 import { NewEra } from './sections/NewEra'
 import { DocumentCreation } from './sections/DocumentCreation'
 import { BeforeAfter } from './sections/BeforeAfter'
 import { DemoTeaser } from './sections/DemoTeaser'
 import { HumanSide } from './sections/HumanSide'
+import { LeaderChecklist } from './sections/LeaderChecklist'
 import { ConcreteExamples } from './sections/ConcreteExamples'
 import { NextWave } from './sections/NextWave'
 import { Closing } from './sections/Closing'
@@ -14,11 +16,13 @@ import { GridBackground } from './components/GridBackground'
 
 const NAV_ITEMS = [
   { id: 'hero', label: 'TOP' },
+  { id: 'self-intro', label: '自己紹介' },
   { id: 'new-era', label: 'AIで何ができる？' },
   { id: 'doc-creation', label: '資料を作る' },
   { id: 'before-after', label: 'サイトを作る' },
   { id: 'demo', label: 'アプリを作る' },
   { id: 'human-side', label: '人間の役割' },
+  { id: 'leader-checklist', label: '経営者の心得' },
   { id: 'examples', label: '具体例' },
   { id: 'next-wave', label: 'この先の未来' },
   { id: 'closing', label: 'まとめ' },
@@ -145,11 +149,13 @@ function App() {
       {/* Main Content */}
       <main>
         <Hero />
+        <SelfIntro />
         <NewEra />
         <DocumentCreation />
         <BeforeAfter />
         <DemoTeaser />
         <HumanSide />
+        <LeaderChecklist />
         <ConcreteExamples />
         <NextWave />
         <Closing />

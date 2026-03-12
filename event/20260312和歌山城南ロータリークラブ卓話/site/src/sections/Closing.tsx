@@ -16,6 +16,11 @@ const TAKEAWAYS = [
   },
   {
     number: '03',
+    title: '「何ができるか」は、触り続けた人にしか見えない',
+    detail: 'AIの能力を知ること＝部下の得意分野を知ること。日頃から触り続ける時間の投資が、「これをAIにやらせよう」という判断力を育てる。',
+  },
+  {
+    number: '04',
     title: 'AIは画面の外に出て、物理的に動き出す',
     detail: '恐れるより先に理解する。「使えるところ」から小さく始める。',
   },
@@ -25,7 +30,7 @@ const FIRST_STEPS = [
   { step: '今日', action: 'ChatGPT か Claude をスマホにインストールする（無料）' },
   { step: '明日', action: '「明日の挨拶文を考えて」と話しかけてみる' },
   { step: '1週間後', action: 'メールの下書きや議事録の整理に使ってみる' },
-  { step: '1ヶ月後', action: '「うちの業務で使えないか？」を考えてみる' },
+  { step: '1ヶ月後', action: '毎日10分でも触り続ける。「これもAIでできるかも？」が自然に浮かぶようになる' },
 ]
 
 export function Closing() {
@@ -126,6 +131,9 @@ export function Closing() {
         </h3>
         <p className="text-base text-gray-500 leading-relaxed max-w-lg mx-auto mb-8">
           この卓話が、AIとの付き合い方を考えるきっかけになれば幸いです。
+          <br />
+          <strong className="text-gray-700">触り続けることが、最高の投資です。</strong>
+          <br />
           ご質問やデモのリクエストもお気軽にどうぞ。
         </p>
 
@@ -133,7 +141,7 @@ export function Closing() {
           whileHover={{ scale: 1.02 }}
           className="group inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gray-900 text-white text-base font-semibold hover:bg-gray-800 transition-colors cursor-default"
         >
-          まず触ってみよう
+          まず触ってみよう。そして、触り続けよう。
           <ArrowRight
             size={18}
             className="group-hover:translate-x-0.5 transition-transform"

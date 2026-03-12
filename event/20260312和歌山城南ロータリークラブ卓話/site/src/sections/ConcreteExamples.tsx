@@ -29,7 +29,6 @@ const EXAMPLES = [
     result: 'AIが動画そのものを自動生成。ナレーション・BGM付きの完成品が数分で出力。',
     costBefore: '制作会社に外注: 50〜100万円',
     costAfter: 'ChatGPT / Gemini 月額3,000円で動画生成まで完結。',
-    color: 'border-l-blue-400',
   },
   {
     number: '02',
@@ -51,7 +50,6 @@ const EXAMPLES = [
     result: '企業文化を反映した原稿 + キャッチコピー3案 + FAQ集を一気に生成。写真撮影の構図提案まで。',
     costBefore: 'ライター外注: 30〜80万円',
     costAfter: 'Claude Pro 月額3,000円で何回でも書き直し放題。自分の言葉で仕上げられる。',
-    color: 'border-l-green-400',
   },
   {
     number: '03',
@@ -73,10 +71,10 @@ const EXAMPLES = [
           subtitle: '周辺のグルメ・アクティビティを地図で探せる',
           categories: ['グルメ', 'アクティビティ', '温泉', 'おみやげ'],
           spots: [
-            { icon: '🍣', name: 'とれとれ市場', tag: 'グルメ', tagColor: 'bg-orange-100 text-orange-600' },
-            { icon: '🛶', name: 'シーカヤック体験', tag: 'アクティビティ', tagColor: 'bg-blue-100 text-blue-600' },
-            { icon: '♨️', name: '崎の湯', tag: '温泉', tagColor: 'bg-red-100 text-red-600' },
-            { icon: '🎁', name: 'かげろう本店', tag: 'おみやげ', tagColor: 'bg-purple-100 text-purple-600' },
+            { icon: '🍣', name: 'とれとれ市場', tag: 'グルメ', tagColor: 'bg-primary-50 text-primary-600' },
+            { icon: '🛶', name: 'シーカヤック体験', tag: 'アクティビティ', tagColor: 'bg-primary-50 text-primary-600' },
+            { icon: '♨️', name: '崎の湯', tag: '温泉', tagColor: 'bg-primary-50 text-primary-600' },
+            { icon: '🎁', name: 'かげろう本店', tag: 'おみやげ', tagColor: 'bg-primary-50 text-primary-600' },
           ],
         },
       },
@@ -84,7 +82,6 @@ const EXAMPLES = [
     result: '動くプロトタイプが半日で完成。画面デザイン・地図連携・画像生成・レスポンシブ対応まで。そのまま社内プレゼンに使用。',
     costBefore: '開発会社に外注: 200〜500万円',
     costAfter: 'Claude Pro 月額3,000円 + サーバー代 月1,000円。不安なら本開発・保守だけ外注することも可能。',
-    color: 'border-l-purple-400',
   },
 ]
 
@@ -92,7 +89,7 @@ export function ConcreteExamples() {
   return (
     <SectionWrapper id="examples" bg="gray">
       <SectionLabel
-        category="CHAPTER 06"
+        category="CHAPTER 07"
         title="「うちでも使えるの？」——はい、使えます。"
         subtitle="月額3,000円のツールさえあれば、これまで外注していたことを自分で内製できます。実際の会話で具体的にお見せします。"
       />
@@ -102,20 +99,29 @@ export function ConcreteExamples() {
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="p-6 sm:p-8 rounded-2xl bg-white border-2 border-green-200 mb-10"
+        className="p-6 sm:p-8 rounded-2xl bg-white border-2 border-primary-200 mb-10"
       >
         <h3 className="text-xl font-bold text-gray-900 mb-3">
-          必要なのは<span className="text-green-600">月額3,000円</span>のツールだけ
+          必要なのは<span className="text-gradient">月額3,000円</span>のツールだけ
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
-            { name: 'ChatGPT Plus', price: '月額 3,000円', note: 'OpenAI社の対話AI' },
-            { name: 'Claude Pro', price: '月額 3,000円', note: 'Anthropic社の対話AI' },
-            { name: 'Gemini Advanced', price: '月額 2,900円', note: 'Google社の対話AI' },
+            { name: 'ChatGPT Plus', price: '月額 3,000円', note: 'OpenAI社の対話AI', recommended: false },
+            { name: 'Claude Pro', price: '月額 3,000円', note: 'Anthropic社の対話AI', recommended: true },
+            { name: 'Gemini Advanced', price: '月額 2,900円', note: 'Google社の対話AI', recommended: false },
           ].map((tool) => (
-            <div key={tool.name} className="p-4 rounded-xl bg-green-50/50 border border-green-100">
-              <p className="text-base font-bold text-gray-800">{tool.name}</p>
-              <p className="text-lg font-black text-green-600">{tool.price}</p>
+            <div key={tool.name} className={`relative p-4 rounded-xl ${
+              tool.recommended
+                ? 'bg-primary-50/50 border-2 border-primary-300'
+                : 'bg-gray-50 border border-gray-100'
+            }`}>
+              {tool.recommended && (
+                <span className="absolute -top-2.5 left-3 inline-flex items-center gap-1 text-[10px] font-black px-2 py-0.5 rounded-full bg-primary-500 text-white">
+                  ★ おすすめ
+                </span>
+              )}
+              <p className={`text-base font-bold ${tool.recommended ? 'text-primary-700' : 'text-gray-800'}`}>{tool.name}</p>
+              <p className="text-lg font-black text-primary-600">{tool.price}</p>
               <p className="text-sm text-gray-500">{tool.note}</p>
             </div>
           ))}
@@ -142,37 +148,25 @@ export function ConcreteExamples() {
               tool: 'ChatGPT',
               company: 'OpenAI',
               badge: '万能型・検索精度が高い',
-              badgeColor: 'bg-gray-200 text-gray-800',
-              border: 'border-gray-300',
-              bg: 'bg-gray-50/60',
-              tagStyle: 'border border-gray-300 bg-white text-gray-700',
-              summary: <><strong>「とにかく何でも聞いてみる」感覚で使えるオールラウンダー。</strong>検索精度が高く、最新ニュースや文書に強い。複雑な質問にも幅広く対応。</>,
+              recommended: false,
+              summary: '「とにかく何でも聞いてみる」感覚で使えるオールラウンダー。検索精度が高く、最新ニュースや文書に強い。',
               uses: ['業界・市場のリサーチ・調査', 'メール・提案書・議事録の下書き', 'アイデア出し・企画のブレスト', 'ウェブ検索と組み合わせた情報収集'],
-              note: null,
             },
             {
               tool: 'Claude',
               company: 'Anthropic',
               badge: '文章・資料作成の精度が高い',
-              badgeColor: 'bg-orange-100 text-orange-700',
-              border: 'border-orange-200',
-              bg: 'bg-orange-50/30',
-              tagStyle: 'border border-orange-200 bg-orange-50/60 text-orange-800',
-              summary: <><strong>PowerPointやWordなどファイルを直接作成・編集する能力が高く、資料の見栄えにこだわりたい時に最適。</strong>文章の推敲や言い回しの改善も得意。</>,
+              recommended: true,
+              summary: 'PowerPointやWordなどファイルを直接作成・編集する能力が高い。文章の推敲や言い回しの改善も得意。',
               uses: ['提案書・事業計画書の文章磨き', 'パンフレット・HPの原稿作成', 'クレーム対応など繊細なメール文', '契約書・規約の要点まとめ'],
-              note: null,
             },
             {
               tool: 'Gemini',
               company: 'Google',
-              badge: 'Googleワークスペース環境に最適',
-              badgeColor: 'bg-blue-100 text-blue-700',
-              border: 'border-blue-200',
-              bg: 'bg-blue-50/30',
-              tagStyle: 'border border-blue-200 bg-blue-50/60 text-blue-800',
-              summary: <><strong>Googleワークスペースと直接連携でき、また画像生成のクオリティが高い。</strong><br />チラシ素材やSNS画像の生成でも活躍。</>,
+              badge: 'Google連携・画像生成が得意',
+              recommended: false,
+              summary: 'Googleワークスペースと直接連携でき、画像生成のクオリティも高い。Gmail上で直接AIを呼び出せる。',
               uses: ['Gmailの返信をAIが自動提案', 'Googleドキュメントで文章をAI編集', 'スプレッドシートのデータ分析・グラフ化', 'チラシ・SNS用の高品質な画像生成'],
-              note: 'Gmail・Googleドキュメント上で別タブを開かずにAIを呼び出すことが可能。',
             },
           ].map((item, i) => (
             <motion.div
@@ -181,26 +175,38 @@ export function ConcreteExamples() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.06 }}
-              className={`rounded-2xl border ${item.border} ${item.bg} p-5 sm:p-6`}
+              className={`relative rounded-2xl p-5 sm:p-6 ${
+                item.recommended
+                  ? 'border-2 border-primary-400 bg-primary-50/30 shadow-md shadow-primary-100/50 ring-1 ring-primary-200/50'
+                  : 'border border-gray-200 bg-white'
+              }`}
             >
+              {item.recommended && (
+                <span className="absolute -top-3 left-5 inline-flex items-center gap-1.5 text-xs font-black px-3 py-1 rounded-full bg-primary-500 text-white shadow-sm">
+                  <span className="text-sm">★</span> おすすめ
+                </span>
+              )}
               <div className="flex flex-wrap items-center gap-3 mb-3">
-                <p className="text-lg font-bold text-gray-900">{item.tool}</p>
+                <p className={`text-lg font-bold ${item.recommended ? 'text-primary-700' : 'text-gray-900'}`}>{item.tool}</p>
                 <span className="text-xs text-gray-400 font-medium">{item.company}</span>
-                <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${item.badgeColor}`}>{item.badge}</span>
+                <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${
+                  item.recommended
+                    ? 'bg-primary-100 text-primary-700'
+                    : 'bg-primary-50 text-primary-600'
+                }`}>{item.badge}</span>
               </div>
               <p className="text-base text-gray-700 leading-relaxed mb-4">{item.summary}</p>
-              <div className="flex flex-wrap gap-2 mb-3">
+              <div className="flex flex-wrap gap-2">
                 {item.uses.map((u) => (
-                  <span key={u} className={`text-sm font-medium px-3 py-1.5 rounded-lg ${item.tagStyle}`}>
+                  <span key={u} className={`text-sm font-medium px-3 py-1.5 rounded-lg border ${
+                    item.recommended
+                      ? 'border-primary-200 bg-white text-gray-700'
+                      : 'border-gray-200 bg-gray-50 text-gray-700'
+                  }`}>
                     {u}
                   </span>
                 ))}
               </div>
-              {item.note && (
-                <p className="text-sm text-gray-600 bg-white/70 rounded-xl px-4 py-3 border border-white/80">
-                  💡 {item.note}
-                </p>
-              )}
             </motion.div>
           ))}
         </div>
@@ -208,7 +214,7 @@ export function ConcreteExamples() {
 
       <h3 className="text-xl font-bold text-gray-800 mb-6">具体的な活用イメージ</h3>
 
-      <div className="space-y-12">
+      <div className="space-y-8">
         {EXAMPLES.map((ex, i) => (
           <motion.div
             key={ex.number}
@@ -216,12 +222,12 @@ export function ConcreteExamples() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.05, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className={`rounded-2xl border border-gray-200 bg-white overflow-hidden border-l-4 ${ex.color}`}
+            className="rounded-2xl border border-gray-200 bg-white overflow-hidden"
           >
             {/* Header with illustration */}
             <div className="relative p-6 sm:p-8 border-b border-gray-100 overflow-hidden">
               <div className="flex items-baseline gap-4 mb-2">
-                <span className="text-3xl font-black text-gray-200">{ex.number}</span>
+                <span className="text-4xl font-black text-primary-100">{ex.number}</span>
                 <span className="text-sm font-bold text-primary-500 bg-primary-50 px-3 py-1 rounded-full">
                   {ex.category}
                 </span>
@@ -237,7 +243,7 @@ export function ConcreteExamples() {
                 src={`/illustrations/${ex.illustration}.png`}
                 alt=""
                 initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 0.15, x: 0 }}
+                whileInView={{ opacity: 0.12, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.15, duration: 0.5 }}
                 className="absolute -right-4 -bottom-4 w-28 sm:w-36 h-auto pointer-events-none select-none"
@@ -254,8 +260,8 @@ export function ConcreteExamples() {
 
             {/* Result + Cost */}
             <div className="px-6 sm:px-8 pb-6 sm:pb-8">
-              <div className="p-5 rounded-xl bg-green-50/50 border border-green-100 mb-4">
-                <p className="text-sm font-bold text-green-600 uppercase tracking-widest mb-2">
+              <div className="p-5 rounded-xl bg-primary-50/30 border border-primary-100 mb-4">
+                <p className="text-sm font-bold text-primary-500 uppercase tracking-widest mb-2">
                   結果
                 </p>
                 <p className="text-base text-gray-800 leading-relaxed">
@@ -264,12 +270,12 @@ export function ConcreteExamples() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-4 rounded-xl bg-red-50/40 border border-red-100">
-                  <p className="text-sm font-bold text-red-400 mb-1">これまで（外注）</p>
-                  <p className="text-base text-gray-500 line-through">{ex.costBefore}</p>
+                <div className="p-4 rounded-xl bg-gray-50 border border-gray-100">
+                  <p className="text-sm font-bold text-gray-400 mb-1">これまで（外注）</p>
+                  <p className="text-base text-gray-400 line-through">{ex.costBefore}</p>
                 </div>
-                <div className="p-4 rounded-xl bg-green-50/40 border border-green-100">
-                  <p className="text-sm font-bold text-green-500 mb-1">AI活用（内製）</p>
+                <div className="p-4 rounded-xl bg-primary-50/40 border border-primary-100">
+                  <p className="text-sm font-bold text-primary-500 mb-1">AI活用（内製）</p>
                   <p className="text-base font-semibold text-gray-900">{ex.costAfter}</p>
                 </div>
               </div>

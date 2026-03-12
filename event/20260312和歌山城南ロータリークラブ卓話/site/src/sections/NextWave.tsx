@@ -49,7 +49,7 @@ export function NextWave() {
   return (
     <SectionWrapper id="next-wave">
       <SectionLabel
-        category="CHAPTER 07"
+        category="CHAPTER 08"
         title="この先、何が起きるのか"
         subtitle="AIはチャットだけで終わりません。画面の外に出て、物理的に動き出す未来がすぐそこまで来ています。"
       />
